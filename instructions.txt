@@ -63,6 +63,8 @@ At the top of the liri.js file, write the code you need to grab the data from ke
 
 Make it so liri.js can take in one of the following commands:
 
+(do if/then or switch case of process.argv[2])
+
 my-tweets
 
 spotify-this-song
