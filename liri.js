@@ -2,8 +2,9 @@
 console.log('the bot is starting');
 var request = require('request');
 var fs = require("fs");
-var Twit = require('twit');
 var twitterKeys = require("./keys.js");
+var Twit = require('twit');
+var Spotify = require('node-spotify-api');
 var T = new Twit(twitterKeys);
 //assigning argv[2] to the function action for our switch/case method
 var action = process.argv[2];
@@ -39,16 +40,24 @@ function tweet(){
       console.log('Tweet: ' + data[i].text);
         console.log('Tweet created at: ' + data[i].created_at);
       }
-  })
-    };
+  });
+};
 //============================================Spotify Function====================================================================
 
-    function spotify() {}
-    
+    function spotify() {
+        var Spotify = require('node-spotify-api');
+        
+       var spotify = new Spotify({
+         id: '102d288e13734766b30efb0caf0c7eb9',
+         secret: 'c15786f446024e2a9c8e606ba002781b'
+       });
+        
+       spotify.search({ type: 'track', query: process.argv[3] }, function(err, data) {
+         if (err) {
+           return console.log('Error occurred: ' + err);
+         }
+        
+       console.log(data); 
+       })
 
-
-
-
-  
-
-
+    };
