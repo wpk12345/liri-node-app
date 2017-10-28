@@ -63,10 +63,8 @@ function tweet(){
        for (var i = 3; i < nodeArg.length; i++) {
         
           // We then "push" (add) each of these strings to our queryArray.
-          queryArray.push(nodeArg[i]);   
-           
-        }
-       
+          queryArray.push(nodeArg[i]);      
+        } 
        spotify.search({ type: 'track', query: queryArray, limit: 1 }, function(err, data) {
         //default query if api returns no song
         if (err) {
@@ -111,16 +109,7 @@ function movieFunction() {
     //using the .join method to remove the commas in the array and concatonate
      var concatArray = (queryArray.join(' '));     
    };
-imdb.get(concatArray, {apiKey: '40e9cece'}, function(err, data) {
-    if (err) {
-      imdb.get('Mr. Nobody', {apiKey: '40e9cece', timeout: 30})
-  .then(function(data){
-
-  })
-  .catch(function(err) {
-    console.error('Error occurred: ' + err); 
-  });
-    }
+   imdb.get(concatArray, {apiKey: '40e9cece', timeout: 30000}).then(function (data, err) {
     console.log('===============================================================================================');
     // * Title of the movie.
     console.log('Movie Title: ' + data.title);
@@ -146,5 +135,37 @@ imdb.get(concatArray, {apiKey: '40e9cece'}, function(err, data) {
     // * Actors in the movie.
     console.log('Actors: ' + data.actors);
     console.log('===============================================================================================');    
-});
-};
+   })
+  .catch(function(err) {
+    imdb.get('Mr. Nobody', {apiKey: '40e9cece', timeout: 30000}).then(function (data, err) {
+      console.log('===============================================================================================');
+      // * Title of the movie.
+      console.log('Movie Title: ' + data.title);
+      console.log('===============================================================================================');    
+      // * Year the movie came out.
+      console.log('Year: ' + data.year); 
+      console.log('===============================================================================================');    
+      // * IMDB Rating of the movie.
+      console.log('IMDB Rating: ' + data.ratings[0].Value);   
+      console.log('===============================================================================================');    
+      // * Rotten Tomatoes Rating of the movie.
+      console.log('Rotton Tomatoes Rating: ' + data.ratings[1].Value);  
+      console.log('===============================================================================================');    
+      // * Country where the movie was produced.
+      console.log('Country: ' + data.country);
+      console.log('===============================================================================================');    
+      // * Language of the movie.
+      console.log('Language: ' + data.languages);
+      console.log('===============================================================================================');    
+      // * Plot of the movie.
+      console.log('Movie Plot: ' + data.plot);
+      console.log('===============================================================================================');    
+      // * Actors in the movie.
+      console.log('Actors: ' + data.actors);
+      console.log('===============================================================================================');  
+    console.error('Error occurred: ' + err); 
+  });
+   
+    });
+
+  };
